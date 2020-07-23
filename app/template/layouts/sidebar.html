@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Temperature Forecasting API</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+body{
+    background-color: #E8E8E8 !important;
+}
+</style>
+</head>
+<body>
+    {% include 'include/_dashbar.html'%}
+    <!-- sidebar -->
+    <div class="sidebar bg-dark">
+        <center>
+            <img src="static/profile_pics/{{ current_user.image_file }}" class="profile_image rounded-circle" alt="">
+            <h4>{{ current_user.username}}</h4>
+        </center>
+        <a href="/dashboard"><i class="fa fa-bar-chart"></i><span>Dashboard</span></a>
+        <a href="/database"><i class="fa fa-database"></i><span>Base de données</span></a>
+        <a href="/development"><i class="fa fa-terminal"></i><span>Developement</span></a>
+        <a href="/admin_account"><i class="fa fa-cogs"></i><span>Compte</span></a>
+    </div>
+
+    <!-- content -->
+    <div class="content">
+        <div class="container-fluid">
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ category }}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endwith %}
+            {% block body %} {% endblock %}
+        </div>
+    </div>
+
+    <style>
+        body{
+            margin:0;
+            pading:0;
+            font*family:"Roboto", sans-serif;
+        }
+        header{
+            position: fixed;
+            background: #22242A;
+            padding: 20px;
+            width: 100%;
+            height: 30px;
+        }
+        .left_area h3{
+            color: #fff;
+            margin: 0;
+            text-transform: uppercase;
+            font-size: 22px;
+            font-weight: 900;
+        }
+        .left_area span{
+            color: #1DC4E7;
+        }
+        .sidebar{
+            background: #2F323A;
+            margin-top: auto70px;
+            padding-top: 30px;
+            position: fixed;
+            left: 0;
+            width: 250px;
+            height: 100%;
+            transition: 0.5s;
+            transition-property: left;
+        }
+        .sidebar profile_image{
+            width: 100px;
+            height: 100px;
+            border-radius: 100px;
+            margin-bottom: 10px;
+        }
+        .sidebar h4{
+            color: #ccc;
+            margin-top: 0;
+            margin-bottom: 20px;
+        }
+        .sidebar a{
+            color: #fff;
+            display: block;
+            width: 100%;
+            line-height: 60px;
+            text-decoration: none;
+            padding-left: 40px;
+            box-sizing: border-box;
+            transition: 0.5s;
+            transition-property: background;
+        }
+        .sidebar a:hover{
+            background: #19B3D3;
+        }
+        .sidebar i{
+            padding-right: 10px;
+        }
+
+        label #sidebar_btn{
+            z-index: 1;
+            color: #fff;
+            position: fixed;
+            cursor: pointer;
+            left: 300px;
+            font-size: 20px;
+            margin: 5px 0;
+            transition: 0.5s;
+            transition-property: color;
+        }
+        label #sidebar_btn:hover{
+            color: #19B3D3;
+        }
+        #check:checked ~ .sidebar{
+            left: -190px;
+        }
+        #check:checked ~ .sidebar a span {
+            display: none;
+        }
+        #check:checked ~ .sidebar a{
+            font-size: 20px;
+            margin-left: 170px;
+            width: 80px;
+        }
+        .content {
+            margin-left: 250px;
+            transition: 0.5s;
+            transition-property:
+        }
+        #check:checked ~ .content{
+            margin-left: 60px;
+        }
+        #check{
+            display: none;
+        }
+    </style>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
+
+    <!-- For Bootstrap tooltips-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js"></script>
+</body>
+</html>

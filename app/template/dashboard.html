@@ -1,0 +1,121 @@
+{% extends 'layouts/sidebar.html'%}
+{% block body %}
+
+<div class="content-header">
+   <div class="container-fluid">
+    <div class="row mb-2">
+     <div class="col-sm-6">
+      <h1 class="m-0 text-dark">Acceuil</h1>
+     </div><!-- /.col -->
+     <div class="col-sm-6">
+      <ol class="breadcrumb float-sm-right">
+        <li class="breadcrumb-item">Dashboard</li> <!-- <a href="#"> </a> -->
+        <li class="breadcrumb-item active">Accueil</li>
+      </ol>
+     </div><!-- /.col -->
+   </div><!-- /.row -->
+ </div><!-- /.container-fluid -->
+</div>
+<style>
+.bg-info, .bg-info>a {
+    color: #fff!important;
+}
+.bg-info {
+    background-color: #17a2b8!important;
+}
+.small-box {
+    border-radius: .25rem;
+    box-shadow: 0 0 1px rgba(0,0,0,.125), 0 1px 3px rgba(0,0,0,.2);
+    display: block;
+    margin-bottom: 20px;
+    position: relative;
+}
+
+.bg-info {
+    background-color: #17a2b8!important;
+}
+.small-box .icon>i.fa, .small-box .icon>i.fab, .small-box .icon>i.far, .small-box .icon>i.fas, .small-box .icon>i.glyphicon, .small-box .icon>i.fa {
+    font-size: 70px;
+    top: 20px;
+}
+.small-box .icon>i {
+    font-size: 90px;
+    position: absolute;
+    right: 15px;
+    top: 15px;
+    transition: all .3s linear;
+}
+@media (min-width: 1200px)
+.col-lg-3 .small-box h3, .col-md-3 .small-box h3, .col-xl-3 .small-box h3 {
+    font-size: 2.2rem;
+}
+@media (min-width: 992px)
+.col-lg-3 .small-box h3, .col-md-3 .small-box h3, .col-xl-3 .small-box h3 {
+    font-size: 1.6rem;
+}
+.small-box h3, .small-box p {
+    z-index: 5;
+}
+.small-box h3 {
+    font-size: 2.2rem;
+    font-weight: 700;
+    margin: 0 0 10px 0;
+    padding: 0;
+    white-space: nowrap;
+}
+*, ::after, ::before {
+    box-sizing: border-box;
+}
+h3 {
+    display: block;
+    font-size: 1.17em;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    font-weight: bold;
+}
+</style>
+<div class="row">
+          <div class="col-lg-3 col-6">
+            <!-- small box -->
+            <div class="small-box bg-info">
+              <div class="inner">
+                <h3> 14 C° </h3>
+                  <p>Min à 18:00</p>
+              </div>
+              <div class="icon">
+                <i class="fa fa-thermometer-half"></i>
+              </div>
+            </div>
+          </div>
+
+        <div class="col-lg-6 col-9">
+            <!-- small box -->
+            <div class="small-box bg-info">
+              <div class="inner">
+                <h3> 21 C° </h3>
+                  <p>Maintenant<br></p>
+              </div>
+              <div class="icon">
+                <i class="fa fa-thermometer-half"></i>
+              </div>
+            </div>
+        </div>
+
+        <div class="col-lg-3 col-6">
+            <!-- small box -->
+            <div class="small-box bg-info">
+              <div class="inner">
+                <h3> 28 C° </h3>
+                  <p>Max à 12:00</p>
+              </div>
+              <div class="icon">
+                <i class="fa fa-thermometer-half"></i>
+              </div>
+            </div>
+          </div>
+
+</div>
+
+{% endblock%}

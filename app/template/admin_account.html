@@ -1,0 +1,78 @@
+{% extends 'layouts/sidebar.html'%}
+{% block body %}
+<!-- header -->
+<div class="content-header">
+   <div class="container-fluid">
+    <div class="row mb-2">
+     <div class="col-sm-6">
+      <h1 class="m-0 text-dark"></h1>
+     </div><!-- /.col -->
+     <div class="col-sm-6">
+      <ol class="breadcrumb float-sm-right">
+        <li class="breadcrumb-item">Dashboard</li> <!-- <a href="#"> </a> -->
+        <li class="breadcrumb-item active">Compte</li>
+      </ol>
+     </div><!-- /.col -->
+   </div><!-- /.row -->
+ </div><!-- /.container-fluid -->
+</div>
+<style>
+#editForm{
+    background-color: white;
+}
+</style>
+<!-- Edit Form -->
+ <form id="editForm" method="POST" action="" enctype="multipart/form-data">
+      {{ form.hidden_tag() }}
+      <fieldset class="form-group">
+          <center><legend class="border-bottom mb-4">Infos personnelles</legend></center>
+          <div class="form-group row justify-content-center">
+		  <div class="col-md-6">
+              {{ form.username.label(class="form-control-label") }}
+
+              {% if form.username.errors %}
+                {{ form.username(class="form-control is-invalid") }}
+                <div class="invalid-feedback">
+                    {% for error in form.username.errors %}
+                        <span>{{ error }}</span>
+                    {% endfor%}
+                </div>
+              {% else %}
+                {{ form.username(class="form-control input-lg col-xs-4") }}
+              {% endif %}
+
+              {{ form.email.label(class="form-control-label") }}
+              {% if form.email.errors %}
+                {{ form.email(class="form-control is-invalid") }}
+                <div class="invalid-feedback">
+                    {% for error in form.email.errors %}
+                        <span>{{ error }}</span>
+                    {% endfor%}
+                </div>
+              {% else %}
+                {{ form.email(class="form-control") }}
+              {% endif %}
+          </div>
+		  </div>
+          <div class="form-group row justify-content-center">
+			<div class="col-md-6">
+				{{ form.picture.label() }}
+
+				{{ form.picture(class="form-control-file") }}
+
+				{% if form.picture.errors %}
+					{% for error in form.picture.errors %}
+						<span class="text-danger">{{ error }}</span></br>
+					{% endfor %}
+				{% endif %}
+			</div>
+		  </div>
+          <div class="form-group row justify-content-center">
+            <div class="col-md-6">
+              {{ form.submit(class="pull-right btn btn-outline-info") }}
+            </div>
+          </div>
+      </fieldset>
+  </form>
+
+{% endblock%}
