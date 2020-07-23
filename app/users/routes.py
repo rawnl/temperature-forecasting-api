@@ -1,11 +1,11 @@
-from flask import Blueprint, request
+from flask import Blueprint
 from flask import render_template, url_for, flash, redirect, request, jsonify
-from app import db, bcrypt, config
+from app import db, bcrypt
+import config
 from app.users.forms import RegistrationForm, LoginForm, UpdateAccountForm, RequestResetForm, ResetPasswordForm, AddForm
 from app.users.utils import save_picture, send_reset_email
-from app.db_models import User
+from db_models import User
 from flask_login import login_user, current_user, logout_user, login_required
-from datetime import datetime
 import uuid
 from functools import wraps
 import jwt
@@ -168,7 +168,7 @@ def token_required(f):
         if not token:
             return jsonify({'message': 'Token is missing'}), 401
         try:
-            data = jwt.decode(token, config.SECRET_KEY )
+            data = jwt.decode(token, config.SECRET_KEY)
             token_user = User.query.filter_by(public_id=data['public_id']).first()
         except:
             return jsonify({'message': 'API Token is invalid '}), 401
