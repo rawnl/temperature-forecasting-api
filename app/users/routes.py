@@ -124,39 +124,42 @@ def dashboard(): #current_user
 @users.route('/database', methods=['GET'])
 @login_required
 def db_management():
-    page = request.args.get('page', 1, type=int)
-    users = User.query.paginate(page=page, per_page=5)
-    page_total = len(users.items)
-    addForm = AddForm()
-    return render_template('database.html',title='Database Management',
-                           users = users, addForm= addForm,
-                           per_page=5, page_total=page_total)
+    if current_user.admin:
+        page = request.args.get('page', 1, type=int)
+        users = User.query.paginate(page=page, per_page=5)
+        page_total = len(users.items)
+        addForm = AddForm()
+        return render_template('database.html',title='Database Management',
+                               users = users, addForm= addForm,
+                               per_page=5, page_total=page_total)
+    return redirect(url_for('main.home'))
 
 @users.route('/development', methods=['GET'])
 @login_required
 def development(): #current_user
-    return render_template('development.html',title='Development section')
+    return render_template('development.html',title='Development section') if current_user.admin else redirect(url_for('main.home'))
 
 @users.route('/admin_account', methods=['GET','POST'])
 @login_required
 def admin_account():
-    form = UpdateAccountForm()
-    if form.validate_on_submit():
-        if form.picture.data:
-            picture_file = save_picture(form.picture.data)
-            current_user.image_file = picture_file
-        current_user.username = form.username.data
-        current_user.email = form.email.data
-        db.session.commit()
-        flash('Votre compte a été mis à jours !', 'success')
-        return redirect(url_for('users.admin_account'))
-    elif request.method == 'GET':
-        form.username.data = current_user.username
-        form.email.data = current_user.email
-    image_file = url_for('static', filename='profile_pics/{}'.format(current_user.image_file))
-    print(image_file)
-    return render_template('admin_account.html', title='Admin Account', image_file=image_file, form=form)
-
+    if current_user.admin:
+        form = UpdateAccountForm()
+        if form.validate_on_submit():
+            if form.picture.data:
+                picture_file = save_picture(form.picture.data)
+                current_user.image_file = picture_file
+            current_user.username = form.username.data
+            current_user.email = form.email.data
+            db.session.commit()
+            flash('Votre compte a été mis à jours !', 'success')
+            return redirect(url_for('users.admin_account'))
+        elif request.method == 'GET':
+            form.username.data = current_user.username
+            form.email.data = current_user.email
+        image_file = url_for('static', filename='profile_pics/{}'.format(current_user.image_file))
+        print(image_file)
+        return render_template('admin_account.html', title='Admin Account', image_file=image_file, form=form)
+    return redirect(url_for('main.home'))
 
 def token_required(f):
     @wraps(f)
@@ -198,25 +201,29 @@ def add():
 @users.route('/update/<id>', methods=['POST'])
 @login_required
 def update(id):
-    user = User.query.filter_by(id=int(id)).first()
-    existed_user = User.query.filter_by(username=request.form['username']).first()
-    if existed_user and existed_user!= user:
-        flash("Le nom d'utilisateur saisi est déja pris. Veuillez choisir un autre.", "danger")
-    else:
-        user.username = request.form['username']
-        user.email = request.form['email']
-        db.session.commit()
-        flash("Informations d'utilisateur mis à jours ", "success")
-    return redirect(url_for('users.db_management'))
+    if current_user.admin:
+        user = User.query.filter_by(id=int(id)).first()
+        existed_user = User.query.filter_by(username=request.form['username']).first()
+        if existed_user and existed_user!= user:
+            flash("Le nom d'utilisateur saisi est déja pris. Veuillez choisir un autre.", "danger")
+        else:
+            user.username = request.form['username']
+            user.email = request.form['email']
+            db.session.commit()
+            flash("Informations d'utilisateur mis à jours ", "success")
+        return redirect(url_for('users.db_management'))
+    return redirect(url_for('main.home'))
 
 @users.route('/delete/<id>', methods=['POST'])
 @login_required
 def delete(id):
-    user = User.query.filter_by(id=int(id)).first()
-    db.session.delete(user)
-    db.session.commit()
-    flash("Utilisateur supprimé", "success")
-    return redirect(url_for('users.db_management'))
+    if current_user.admin:
+        user = User.query.filter_by(id=int(id)).first()
+        db.session.delete(user)
+        db.session.commit()
+        flash("Utilisateur supprimé", "success")
+        return redirect(url_for('users.db_management'))
+    return redirect(url_for('main.home'))
 
 @users.route('/predict', methods=['GET'])
 def predict():
