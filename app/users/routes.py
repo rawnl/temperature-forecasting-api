@@ -1,10 +1,9 @@
 from flask import Blueprint
 from flask import render_template, url_for, flash, redirect, request, jsonify
-from app import db, bcrypt
-import config
+from app import db, bcrypt, config
 from app.users.forms import RegistrationForm, LoginForm, UpdateAccountForm, RequestResetForm, ResetPasswordForm, AddForm
 from app.users.utils import save_picture, send_reset_email
-from db_models import User
+from app.db_models import User
 from flask_login import login_user, current_user, logout_user, login_required
 import uuid
 from functools import wraps
