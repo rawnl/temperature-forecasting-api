@@ -74,6 +74,8 @@ def account():
         form.email.data = current_user.email
     image_file = url_for('static', filename='profile_pics/{}'.format(current_user.image_file))
     print(image_file)
+    if current_user.admin:
+        return render_template('admin_account.html', title='Admin Account', image_file=image_file, form=form)
     return render_template('account.html',title='Account', image_file=image_file, form=form)
 
 @users.route('/reset_password', methods=['GET', 'POST'])
@@ -139,6 +141,7 @@ def db_management():
 def development(): #current_user
     return render_template('development.html',title='Development section') if current_user.admin else redirect(url_for('main.home'))
 
+'''
 @users.route('/admin_account', methods=['GET','POST'])
 @login_required
 def admin_account():
@@ -160,6 +163,7 @@ def admin_account():
         print(image_file)
         return render_template('admin_account.html', title='Admin Account', image_file=image_file, form=form)
     return redirect(url_for('main.home'))
+'''
 
 def token_required(f):
     @wraps(f)
