@@ -1,12 +1,17 @@
 from flask import Blueprint, render_template, jsonify
 import pandas as pd
 import pickle
+from keras.models import load_model
 
 # project related imports:
 from app.models.utils import series_to_supervised,data_processing, data_scaling, train_test_split, reshaping
 
 models = Blueprint('models', __name__)
-model = pickle.load('simple_model.pkl', 'rb')
+#model = pickle.load('simple_model.pkl', 'rb')
+#with open('app/models/simple_model.pkl', 'rb') as file:
+#    model = pickle.load(file)
+
+model = load_model('simple_model.model')
 
 @models.route('/predict', methods=['POST'])
 def predict():
