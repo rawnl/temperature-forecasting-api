@@ -29,11 +29,13 @@ def create_app(): #config_class=Config
     from app.users.routes import users
     from app.forecasts.routes import forecasts
     from app.errors.handlers import errors
+    from app.models.routes import models
 
     app.register_blueprint(main)
     app.register_blueprint(users)
     app.register_blueprint(forecasts)
     app.register_blueprint(errors)
+    app.register_blueprint(models)
 
     with app.app_context():
         db.create_all()
