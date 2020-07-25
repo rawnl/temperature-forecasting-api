@@ -11,7 +11,7 @@ models = Blueprint('models', __name__)
 #with open('app/models/simple_model.pkl', 'rb') as file:
 #    model = pickle.load(file)
 
-model = load_model('simple_model.model')
+model = load_model('simple_model.sav')
 
 @models.route('/predict', methods=['POST'])
 def predict():
