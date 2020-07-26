@@ -12,6 +12,7 @@ from keras.layers import Dense, LSTM, RepeatVector, TimeDistributed, Flatten, Dr
 from keras.regularizers import l1
 from keras.models import load_model
 
+
 from sklearn.metrics import mean_squared_error
 from sklearn.metrics import mean_absolute_error
 from sklearn.preprocessing import MinMaxScaler
@@ -96,12 +97,15 @@ model_lstm.summary()
 
 # Training :
 start = time.time()
-lstm_history = model_lstm.fit(X_train_series, Y_train, validation_data=(X_valid_series, Y_valid), epochs=epoch, verbose=1,
-               batch_size=batch)
+lstm_history = model_lstm.fit(X_train_series, Y_train,
+                                validation_data=(X_valid_series, Y_valid),
+                                epochs=epoch, verbose=1,
+                                batch_size=batch)
 end = time.time()
 execution_time = end - start
 print(execution_time)
 
+'''
 #Ploting loss history :
 import matplotlib.pyplot as plt 
 lstm_train_loss = lstm_history.history['loss']
@@ -117,7 +121,7 @@ plt.xlabel('Epoch')
 plt.ylabel('MAE')
 plt.show()
 #plt.savefig('loss-history-plot-{}.png'.format(string))
-
+'''
 
 # Normalized predictions:
 lstm_train_pred = model_lstm.predict(X_train_series)
@@ -137,13 +141,16 @@ n_val_mae = mean_absolute_error(Y_valid, lstm_valid_pred)
 print('Train mae (avec normalisation):', n_train_mae)
 print('Validation mae (avec normalisation):', n_val_mae)
 
+'''
 # save the model to disk
 filename = 'simple_model_pickle.pkl'
 pickle.dump(model_lstm, open(filename, 'wb'))
 
 # load the model from disk
 loaded_model = pickle.load(open(filename, 'rb'))
+'''
 
+'''
 model_lstm.save('simple_model.model')
 loaded_model = load_model('simple_model.model')
 loaded_model.summary()
@@ -151,6 +158,7 @@ loaded_model.summary()
 # Normalized predictions:
 train_pred = loaded_model.predict(X_train_series)
 valid_pred = loaded_model.predict(X_valid_series)
+'''
 
 #zip file
 '''
@@ -177,10 +185,11 @@ with open("model.json", "w") as json_file:
     json_file.write(model_json)
 '''
 
+'''
 # serialize weights to HDF5
 model_lstm.save_weights("model.h5")
 print("Saved")
-
+'''
 
 # Create data frame for predictions (normalized):
 normalized_lstm_predictions = pd.DataFrame(Y_valid.values, columns=['Temperature'])
@@ -203,4 +212,11 @@ val_rmse = np.sqrt(mean_squared_error(y_val_inv_lstm, y_pred_inv_lstm))
 
 print('Validation mae (sans normalisation):', val_mae)
 print('Validation rmse (sans normalisation):', val_rmse)
+
+#save model
+model_lstm.save("model.h5")
+
+#load model
+loaded_model = load_model('model.h5')
+loaded_model.summary()
 

@@ -7,11 +7,12 @@ from keras.models import load_model
 from app.models.utils import series_to_supervised,data_processing, data_scaling, train_test_split, reshaping
 
 models = Blueprint('models', __name__)
-#model = pickle.load('simple_model.pkl', 'rb')
-with open('simple_model_pickle.pkl', 'rb') as file:
-    model = pickle.load(file)
 
-#model = load_model('simple_model_pickle.pkl')
+#model = pickle.load('simple_model.pkl', 'rb')
+#with open('app/models/simple_model_pickle.pkl', 'rb') as file:
+#    model = pickle.load(file)
+
+model = load_model('pickle_model.sav')
 
 @models.route('/predict', methods=['POST'])
 def predict():
