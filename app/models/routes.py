@@ -12,7 +12,7 @@ models = Blueprint('models', __name__)
 #with open('app/models/simple_model_pickle.pkl', 'rb') as file:
 #    model = pickle.load(file)
 
-model = load_model('pickle_model.sav')
+model = load_model('model.h5')
 
 @models.route('/predict', methods=['POST'])
 def predict():
