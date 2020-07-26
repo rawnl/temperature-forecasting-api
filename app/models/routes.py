@@ -8,11 +8,33 @@ from app.models.utils import series_to_supervised,data_processing, data_scaling,
 
 models = Blueprint('models', __name__)
 
+'''
 #model = pickle.load('simple_model.pkl', 'rb')
 #with open('app/models/simple_model_pickle.pkl', 'rb') as file:
 #    model = pickle.load(file)
 
 model = load_model('model.h5')
+'''
+
+# loading the model
+from keras.models import model_from_yaml
+
+with open('simple_model.yaml.yaml', 'r') as yaml_file:
+    loaded_model_yaml = yaml_file.read()
+
+    loaded_model = model_from_yaml(loaded_model_yaml)
+
+    # load weights into new model
+    loaded_model.load_weights("y_model_weights.h5")
+
+    '''
+    # predict
+    pred_yaml = loaded_model.predict(x)
+    pred_yaml = np.sqrt(mean_squared_error(pred_yaml, y))
+    print("After loading score (RMSE): {}".format(pred_yaml))
+    '''
+
+    model = loaded_model
 
 @models.route('/predict', methods=['POST'])
 def predict():
