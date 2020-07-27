@@ -3,6 +3,15 @@ import pandas as pd
 import pickle
 from keras.models import load_model
 
+from keras import optimizers
+from keras.utils import plot_model
+from keras.models import Sequential, Model
+from keras.layers.convolutional import Conv1D, MaxPooling1D
+from keras.layers import Dense, LSTM, RepeatVector, TimeDistributed, Flatten, Dropout
+from keras.regularizers import l1
+from keras.models import load_model
+
+
 # project related imports:
 from app.models.utils import series_to_supervised,data_processing, data_scaling, train_test_split, reshaping
 
@@ -12,31 +21,35 @@ models = Blueprint('models', __name__)
 #model = pickle.load('simple_model.pkl', 'rb')
 #with open('app/models/simple_model_pickle.pkl', 'rb') as file:
 #    model = pickle.load(file)
-
-model = load_model('model.h5')
 '''
 
+model = load_model('app/models/simple_model')
+
+'''
 # loading the model
 from keras.models import model_from_yaml
 
-with open('simple_model.yaml.yaml', 'r') as yaml_file:
+with open('app/models/simple_model.yaml', 'r') as yaml_file:
     loaded_model_yaml = yaml_file.read()
 
     loaded_model = model_from_yaml(loaded_model_yaml)
 
     # load weights into new model
     loaded_model.load_weights("y_model_weights.h5")
+'''
 
-    '''
+'''
     # predict
     pred_yaml = loaded_model.predict(x)
     pred_yaml = np.sqrt(mean_squared_error(pred_yaml, y))
     print("After loading score (RMSE): {}".format(pred_yaml))
-    '''
+'''
 
+'''
     model = loaded_model
+'''
 
-@models.route('/predict', methods=['POST'])
+@models.route('/predict', methods=['GET'])
 def predict():
     data = pd.read_csv('../data/climate_hour.csv', parse_dates=['Date Time'],index_col = 0, header=0)
     data = data.sort_values(['Date Time'])

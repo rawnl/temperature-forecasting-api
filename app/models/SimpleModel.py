@@ -78,10 +78,10 @@ def reshape_data(X_train, X_valid):
 
     return X_train_series, X_valid_series
 
-def build_model(input_shape):
+def build_model(): #input_shape
 
     model_lstm = Sequential()
-    model_lstm.add(LSTM(25, activation='sigmoid', input_shape=input_shape))  # , activity_regularizer=l1(0.001)
+    model_lstm.add(LSTM(25, activation='sigmoid', input_shape=(144,1))) #input_shape # , activity_regularizer=l1(0.001)
     model_lstm.add(Dense(1))
     model_lstm.compile(loss='mae', optimizer=opt, metrics=['mse'])
     model_lstm.summary()
@@ -106,7 +106,7 @@ normalized_temp = data_processing(data)
 series = series_to_supervised(normalized_temp, window=window)
 X_train, X_valid, Y_train, Y_valid = split_data(series)
 X_train_series, X_valid_series = reshape_data(X_train, X_valid)
-model_lstm = build_model(input_shape=(X_train_series.shape[1], X_train_series.shape[2]))
+model_lstm = build_model() #input_shape=(X_train_series.shape[1], X_train_series.shape[2])
 
 # Training :
 lstm_history = model_lstm.fit(X_train_series, Y_train,
@@ -114,10 +114,37 @@ lstm_history = model_lstm.fit(X_train_series, Y_train,
                                 epochs=epoch, verbose=1,
                                 batch_size=batch)
 
+# Load the library
+from tensorflow.keras.models import load_model
 
+# Save the model using TensorFlow SavedModel format
+model_lstm.save('simple_model')
+
+#zip file
+import os
+import zipfile
+
+folder_path = '/simple_model'
+zip_path = '/SimpleModelZip'
+
+
+def zip_directory(folder_path, zip_path):
+    with zipfile.ZipFile(zip_path, mode='w') as zipf:
+        len_dir_path = len(folder_path)
+        for root, _, files in os.walk(folder_path):
+            for file in files:
+                file_path = os.path.join(root, file)
+                zipf.write(file_path, file_path[len_dir_path:])
+
+
+# load the pb model
+model_tf = load_model('simple_model')
+
+'''
 # save model  structure to YAML (no weights)
 model_yaml = model_lstm.to_yaml()
 with open("simple_model.yaml", "w") as yaml_file:
     yaml_file.write(model_yaml)
 # save the model weights separatly
 model_lstm.save_weights('y_model_weights.h5')
+'''
