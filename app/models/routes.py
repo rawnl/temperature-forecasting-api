@@ -1,7 +1,6 @@
 from flask import Blueprint, render_template, jsonify
 import pandas as pd
 import pickle
-from keras.models import load_model
 
 from keras import optimizers
 from keras.utils import plot_model
@@ -9,7 +8,7 @@ from keras.models import Sequential, Model
 from keras.layers.convolutional import Conv1D, MaxPooling1D
 from keras.layers import Dense, LSTM, RepeatVector, TimeDistributed, Flatten, Dropout
 from keras.regularizers import l1
-from keras.models import load_model
+from tensorflow.keras.models import load_model
 
 
 # project related imports:
