@@ -36,6 +36,7 @@ with open('app/models/simple_model.yaml', 'r') as yaml_file:
 
     # load weights into new model
     loaded_model.load_weights("y_model_weights.h5")
+    model = loaded_model
 '''
 
 '''
@@ -45,17 +46,14 @@ with open('app/models/simple_model.yaml', 'r') as yaml_file:
     print("After loading score (RMSE): {}".format(pred_yaml))
 '''
 
-'''
-    model = loaded_model
-'''
 
-@models.route('/predict', methods=['GET'])
+@models.route('/prediction', methods=['GET'])
 def predict():
-    data = pd.read_csv('../data/climate_hour.csv', parse_dates=['Date Time'],index_col = 0, header=0)
+    data = pd.read_csv('app/data/climate_hour.csv', parse_dates=['Date Time'],index_col = 0, header=0)
     data = data.sort_values(['Date Time'])
     temp_data = data_processing(data)
     normalized_temp = data_scaling(temp_data)
-    series = series_to_supervised(normalized_temp, window=24)
+    series = series_to_supervised(normalized_temp, window=144)
     X_train,Y_train,X_valid,Y_valid = train_test_split(series)
     X_train_reshaped, X_valid_reshaped = reshaping(X_train,X_valid)
 

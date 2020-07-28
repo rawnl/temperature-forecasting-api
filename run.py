@@ -22,5 +22,5 @@ def start_scheduler():
 # run server
 if __name__ == '__main__':
     #start_scheduler()
-    app.run(debug=True)
+    app.run(debug=True, threaded=False)
 
