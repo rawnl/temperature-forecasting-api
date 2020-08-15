@@ -4,13 +4,13 @@ import matplotlib.pyplot as plt
 import time
 import csv
 
-from keras import optimizers
-from keras.utils import plot_model
-from keras.models import Sequential, Model
-from keras.layers.convolutional import Conv1D, MaxPooling1D
-from keras.layers import Dense, LSTM, RepeatVector, TimeDistributed, Flatten, Dropout
-from keras.regularizers import l1
-from keras.models import load_model
+import tensorflow as tf 
+from tensorflow.keras import optimizers
+from tensorflow.keras.utils import plot_model
+from tensorflow.keras.models import Sequential, Model
+from tensorflow.keras.layers import Dense, LSTM, RepeatVector, TimeDistributed, Flatten, Dropout
+from tensorflow.keras.regularizers import l1
+from tensorflow.keras.models import load_model
 
 
 from sklearn.metrics import mean_squared_error
@@ -124,6 +124,7 @@ model_lstm.save('simple_model')
 import os
 import zipfile
 
+'''
 folder_path = '/simple_model'
 zip_path = '/SimpleModelZip'
 
@@ -135,16 +136,15 @@ def zip_directory(folder_path, zip_path):
             for file in files:
                 file_path = os.path.join(root, file)
                 zipf.write(file_path, file_path[len_dir_path:])
-
+'''
 
 # load the pb model
 model_tf = load_model('simple_model')
 
-'''
 # save model  structure to YAML (no weights)
 model_yaml = model_lstm.to_yaml()
 with open("simple_model.yaml", "w") as yaml_file:
     yaml_file.write(model_yaml)
+    
 # save the model weights separatly
 model_lstm.save_weights('y_model_weights.h5')
-'''

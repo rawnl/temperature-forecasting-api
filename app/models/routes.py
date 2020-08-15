@@ -62,8 +62,19 @@ def predict():
 
     print(lstm_train_pred)
     print(lstm_valid_pred)
+    y_tr = Y_train.tolist()
+    p_tr = lstm_train_pred.tolist()
+    y_val = Y_valid.tolist()
+    p_val = lstm_valid_pred.tolist()
 
-    return jsonify({'true_train': Y_train,
+    items = [   {'true_train': y_tr},
+                {'pred_train':p_tr},
+                {'true_val': y_val},
+                {'pred_val': p_val} ]
+
+    return jsonify(items)
+
+'''    return jsonify({'true_train': Y_train.tolist(),
                     'pred_train':lstm_train_pred,
                     'true_val': Y_valid,
-                    'pred_val': lstm_valid_pred})
+                    'pred_val': lstm_valid_pred})'''

@@ -1,6 +1,66 @@
 {% extends 'layouts/sidebar.html'%}
 {% block body %}
-<!-- header -->
+<!--
+<style>
+  .scrolling{
+    width: 100% !important;
+    height: 450px !important;
+    overflow-y: scroll !important;
+  }
+</style>
+-->
+
+<!--
+<script>
+  // When the user scrolls the page, execute myFunction
+  window.onscroll = function() {myFunction()};
+
+  // Get the navbar
+  var sidebar = document.getElementById("sidebar");
+  var navbar = document.getElementById("dashbar");
+
+  // Get the offset position of the navbar
+  var sticky = navbar.offsetTop;
+  var d_sticky = sidebar.offsetTop;
+
+  // Add the sticky class to the navbar when you reach its scroll position. Remove "sticky" when you leave the scroll position
+  function myFunction() {
+    if (window.pageYOffset >= sticky) {
+      navbar.classList.add("sticky")
+      sidebar.classList.add("dsticky")
+    } else {
+      navbar.classList.remove("sticky");
+      navbar.classList.remove("dsticky");
+    }
+  }
+</script>
+-->
+<style>
+
+#csv-file-btn {
+  font-family: calibri;
+  text-align: center;
+  background-color: #DDD;
+  cursor: pointer;
+  align-content: center;
+}
+</style>
+<!--
+<script>
+  function getFile() {
+    document.getElementById("upfile").click();
+  }
+
+  function sub(obj) {
+    var file = obj.value;
+    var fileName = file.split("\\");
+    document.getElementById("csv-file-btn").innerHTML = fileName[fileName.length - 1];
+    document.myForm.submit();
+    event.preventDefault();
+  }
+</script>
+-->
+
 <div class="content-header">
    <div class="container-fluid">
     <div class="row mb-2">
@@ -10,7 +70,7 @@
      <div class="col-sm-6">
       <ol class="breadcrumb float-sm-right">
         <li class="breadcrumb-item">Dashboard</li> <!-- <a href="#"> </a> -->
-        <li class="breadcrumb-item active">Developper</li>
+        <li class="breadcrumb-item active">Developpement</li>
       </ol>
      </div><!-- /.col -->
    </div><!-- /.row -->
@@ -18,5 +78,254 @@
 </div>
 
 <!-- Dev Form -->
+<form method="POST" action="" enctype="multipart/form-data">
+<div class="card text-center">
+  
+  <div class="card-header">
+    <ul class="nav nav-tabs card-header-tabs">
+      <li class="nav-item">
+        <a class="nav-link active" href="#">Entrainement</a>
+      </li>
+    </ul>
+  </div>
+
+  <br>
+  <div class="card-columns">
+
+<!-- data card -->
+    <div class="card text-center" style="width: 18rem;"> <!---->
+      <div class="card-header">
+        Données
+      </div>
+      <div class="card-body justify-content-between">
+        <div class="form-control" id="csv-file-btn" onclick="getFile()"><i class="fa fa-file"></i><span>Importer un fichier csv</span></div>
+        <!-- this is your file input tag, so i hide it!-->
+        <!-- i used the onchange event to fire the form submission-->
+        <div style='height: 0px;width: 0px; overflow:hidden;'>
+          <input id="upfile" type="file" value="upload" onchange="sub(this)" />
+        </div>
+        <!-- here you can have file submit button or you can write a simple script to upload the file automatically-->
+        <!-- <input type="submit" value='submit' > -->
+        <!--<input type="file" id="data" class="form-control">-->
+ 
+        <p class="card-text"><small class="text-muted">Le fichier doit contenir deux colonnes, la premiere respresente la date et la deuxieme represente la temperature C°</small></p>
+      
+        <hr>
+        <h5 class="card-title">Aperçu de données</h5>
+        
+        <p class="card-text">Nombre d'enregistrements: 20000</p>
+
+        <div class="row">
+          <div class="col" >Window</div>
+          <div class="col">
+            <input type="number" id="window" required class="form-control">
+          </div>  
+        </div>
+        <div class="row">
+          <div class="col" >Training</div>
+          <div class="col">
+            <input type="number" id="training" required class="form-control">
+          </div>  
+        </div>
+
+        <div class="row">
+          <div class="col" >Validation</div>
+          <div class="col">
+            <input type="number" id="validation" required class="form-control">
+          </div>  
+        </div>
+
+        <p class="card-text"><small class="text-muted">Window: le nombre d'enregistrements (heures) passés a prendre en consideration</small></p>
+      </div>      
+    </div>
+<!-- end of data -->
+
+<!-- model card -->
+<div class="card" style="width: 18rem;">
+  <div class="card-header">
+    Modele
+  </div>
+  <div class="card-body">
+    <select id="model" class="form-control">
+      <option selected>Simple Model</option>
+      <option>Multi Step Model</option>
+    </select>
+    <hr>
+    <h5 class="card-title">Description du modele</h5>
+    <p class="card-text">Ce modele permet de prédire la temperature pour les prochainnes 24h</p>
+    <hr>
+    <h5 class="card-title">Hyper-parametres</h5>
+
+    <div class="row">
+      <div class="col" >optimizer</div>
+      <div class="col">
+        <select id="optimizer" class="form-control">
+          <option value="Adam" selected>Adam</option>
+          <option value="RMSprop">RMSprop</option>
+          <option value="SGD">SGD</option>
+        </select>
+      </div>  
+    </div>
+
+    <div class="row">
+      <div class="col" >Learning rate </div>
+      <div class="col">
+        <select id="lr" class="form-control">
+          <option value="0.0001" selected>0.0001</option>
+          <option value="0.001">0.001</option>
+          <option value="0.01">0.01</option>
+        </select>
+      </div>  
+    </div>
+
+    <div class="row">
+      <div class="col" >Batch size</div>
+      <div class="col">
+        <select id="batch" class="form-control">
+          <option value="64" selected>64</option>
+          <option value="128">128</option>
+          <option value="256">256</option>
+        </select>
+      </div>  
+    </div>
+
+    <div class="row">
+      <div class="col" >Epochs</div>
+      <div class="col">
+        <input type="number" id="epoch" required class="form-control">
+      </div>  
+    </div>
+
+  </div>
+</div>
+<!-- end of model card -->
+
+<!-- Results card -->
+    <div class="card text-center" style="width: 18rem;">
+      <div class="card-header">
+        Résultats
+      </div>
+      <div class="card-body text-center">
+        <div class="row">
+          Temps d'entrainement: 
+        </div>
+        <div class="row"> 
+          MAE ( Entrainement):
+        </div>
+        <div class="row"> 
+          MAE (Validation): 
+        </div>
+        <div class="row">
+          Graphe :
+        </div>
+      </div>
+    </div>
+<!-- end configuration -->
+  
+</div>
+
+</div>
+</form>
+
+</div>
+  <!--  
+  <br>
+  <div class="card" style="width: 18rem;">
+    <div class="card-header">
+      Modele
+    </div>
+    <div class="card-body">
+      <select id="inputState" class="form-control">
+        <option selected>Simple Model</option>
+        <option>Multi Step Model</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="card text-center">
+    <div class="card-body">
+      <h5 class="card-title">Card title</h5>
+      <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
+      <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+    </div>
+  </div>
+
+  <div class="card" style="width: 18rem;">
+    <div class="card-header">
+      Données
+    </div>
+    <div class="card-body">
+      
+    </div>
+  </div>
+
+  <div class="card-body">
+    <h5 class="card-title">Special title treatment</h5>
+    <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+    <a href="#" class="btn btn-primary">Go somewhere</a>
+  </div>
+</div>
+-->
+<!--
+<div class="card" style="width: 18rem;">
+  <div class="card-header">
+    Featured
+  </div>
+  <ul class="list-group list-group-flush">
+    <li class="list-group-item">Cras justo odio</li>
+    <li class="list-group-item">Dapibus ac facilisis in</li>
+    <li class="list-group-item">Vestibulum at eros</li>
+  </ul>
+</div>
+-->
+
+<!--
+<form>
+  <div class="form-row">
+    <div class="form-group col-md-6">
+      <label for="inputEmail4">Email</label>
+      <input type="email" class="form-control" id="inputEmail4" placeholder="Email">
+    </div>
+    <div class="form-group col-md-6">
+      <label for="inputPassword4">Password</label>
+      <input type="password" class="form-control" id="inputPassword4" placeholder="Password">
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="inputAddress">Address</label>
+    <input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St">
+  </div>
+  <div class="form-group">
+    <label for="inputAddress2">Address 2</label>
+    <input type="text" class="form-control" id="inputAddress2" placeholder="Apartment, studio, or floor">
+  </div>
+  <div class="form-row">
+    <div class="form-group col-md-6">
+      <label for="inputCity">City</label>
+      <input type="text" class="form-control" id="inputCity">
+    </div>
+    <div class="form-group col-md-4">
+      <label for="inputState">State</label>
+      <select id="inputState" class="form-control">
+        <option selected>Choose...</option>
+        <option>...</option>
+      </select>
+    </div>
+    <div class="form-group col-md-2">
+      <label for="inputZip">Zip</label>
+      <input type="text" class="form-control" id="inputZip">
+    </div>
+  </div>
+  <div class="form-group">
+    <div class="form-check">
+      <input class="form-check-input" type="checkbox" id="gridCheck">
+      <label class="form-check-label" for="gridCheck">
+        Check me out
+      </label>
+    </div>
+  </div>
+  <button type="submit" class="btn btn-primary">Sign in</button>
+</form>
+-->
 
 {% endblock%}

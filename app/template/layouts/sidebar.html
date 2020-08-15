@@ -6,44 +6,15 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <style>
-body{
-    background-color: #E8E8E8 !important;
-}
-</style>
-</head>
-<body>
-    {% include 'include/_dashbar.html'%}
-    <!-- sidebar -->
-    <div class="sidebar bg-dark">
-        <center>
-            <img src="static/profile_pics/{{ current_user.image_file }}" class="profile_image rounded-circle" alt="">
-            <h4>{{ current_user.username}}</h4>
-        </center>
-        <a href="/dashboard"><i class="fa fa-bar-chart"></i><span>Dashboard</span></a>
-        <a href="/database"><i class="fa fa-database"></i><span>Base de données</span></a>
-        <a href="/development"><i class="fa fa-terminal"></i><span>Developement</span></a>
-        <a href="/account"><i class="fa fa-cogs"></i><span>Compte</span></a>
-    </div>
-
-    <!-- content -->
-    <div class="content">
-        <div class="container-fluid">
-            {% with messages = get_flashed_messages(with_categories=true) %}
-                {% for category, message in messages %}
-                    <div class="alert alert-{{ category }}">
-                        {{ message }}
-                    </div>
-                {% endfor %}
-            {% endwith %}
-            {% block body %} {% endblock %}
-        </div>
-    </div>
-
-    <style>
+        /*html, body {
+            max-width: 100%;
+            overflow: hidden;
+        }*/
         body{
+            background-color: #E8E8E8 !important;
             margin:0;
-            pading:0;
-            font*family:"Roboto", sans-serif;
+            padding:0;
+            font-family:"Roboto", sans-serif;
         }
         header{
             position: fixed;
@@ -63,8 +34,9 @@ body{
             color: #1DC4E7;
         }
         .sidebar{
+            /*overflow: hidden;*/
             background: #2F323A;
-            margin-top: auto70px;
+            margin-top: auto200px;
             padding-top: 30px;
             position: fixed;
             left: 0;
@@ -75,7 +47,7 @@ body{
         }
         .sidebar profile_image{
             width: 100px;
-            height: 100px;
+            height: 90px;
             border-radius: 100px;
             margin-bottom: 10px;
         }
@@ -139,6 +111,51 @@ body{
             display: none;
         }
     </style>
+
+<!--    <script>
+        /* it seems javascript..*/
+        var topLimit = $('#bar-fixed').offset().top;
+        var dash = $('#dash').offset().top;
+        $(window).scroll(function() {
+        //console.log(topLimit <= $(window).scrollTop())
+        if (topLimit <= $(window).scrollTop() || dash <= $(window).scrollTop()) {
+            $('#bar-fixed').addClass('stickIt')
+            $('#dash').addClass('stickIt')
+        } else {
+            $('#bar-fixed').removeClass('stickIt')
+            $('#bar-fixed').removeClass('stickIt')
+        }
+        })
+    </script>
+-->
+</head>
+<body>
+    {% include 'include/_dashbar.html'%}
+    <!-- sidebar -->
+    <div class="sidebar bg-dark fixed" id="sidebar">
+        <center>
+            <img src="static/profile_pics/{{ current_user.image_file }}" class="profile_image rounded-circle" alt="">
+            <h4>{{ current_user.username}}</h4>
+        </center>
+        <a href="/dashboard"><i class="fa fa-bar-chart"></i><span>Dashboard</span></a>
+        <a href="/database"><i class="fa fa-database"></i><span>Base de données</span></a>
+        <a href="/development"><i class="fa fa-terminal"></i><span>Developement</span></a>
+        <a href="/account"><i class="fa fa-cogs"></i><span>Compte</span></a>
+    </div>
+
+    <!-- content -->
+    <div class="content">
+        <div class="container-fluid">
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ category }}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endwith %}
+            {% block body %} {% endblock %}
+        </div>
+    </div>
 
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
