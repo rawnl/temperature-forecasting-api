@@ -114,22 +114,6 @@
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/chartist.js/latest/chartist.min.css">
 <script src="https://cdn.jsdelivr.net/chartist.js/latest/chartist.min.js"></script>
-<!--    <script>
-        /* it seems javascript..*/
-        var topLimit = $('#bar-fixed').offset().top;
-        var dash = $('#dash').offset().top;
-        $(window).scroll(function() {
-        //console.log(topLimit <= $(window).scrollTop())
-        if (topLimit <= $(window).scrollTop() || dash <= $(window).scrollTop()) {
-            $('#bar-fixed').addClass('stickIt')
-            $('#dash').addClass('stickIt')
-        } else {
-            $('#bar-fixed').removeClass('stickIt')
-            $('#bar-fixed').removeClass('stickIt')
-        }
-        })
-    </script>
--->
 </head>
 <body>
     {% include 'include/_dashbar.html'%}
