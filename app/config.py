@@ -4,6 +4,7 @@ import os
 from dotenv import load_dotenv
 load_dotenv()
 
+UPLOAD_FOLDER = os.getenv('UPLOAD_FOLDER')
 SECRET_KEY = os.getenv('SECRET_KEY')
 SQLALCHEMY_DATABASE_URI = os.getenv('SQLALCHEMY_DATABASE_URI')
 MAIL_SERVER = 'smtp.googlemail.com'

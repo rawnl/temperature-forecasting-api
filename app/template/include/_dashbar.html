@@ -1,5 +1,5 @@
 <input type="checkbox" id="check">
-<nav class="navbar navbar-expand-md navbar-dark bg-dark " id="dashbar">
+<nav class="navbar fixed-top navbar-expand-md navbar-dark bg-dark " id="dashbar">
   <a class="navbar-brand" href="{{ url_for('main.home')}}">Temperature Forecasting API</a>
   <label for="check">
         <i class="fa fa-bars" id="slidebar_btn" aria-hidden="true"></i>
@@ -10,7 +10,7 @@
   <div class="collapse navbar-collapse" id="navbarsExampleDefault">
     <ul class="navbar-nav ml-auto">
       <li class="nav-item">
-        <a class="nav-link" href="{{ url_for('users.logout')}}">Déconnexion</a>
+        <a class="nav-link" href="{{ url_for('users.logout')}}">Logout</a>
       </li>
     </ul>
   </div>

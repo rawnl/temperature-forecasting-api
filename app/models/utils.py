@@ -2,9 +2,9 @@ import pandas as pd
 from sklearn.preprocessing import MinMaxScaler
 
 def data_processing(data):
-    temp_data = data['T (degC)']
-    temp_data = pd.DataFrame({'Date Time': data.index, 'T (degC)':temp_data.values})
-    temp_data = temp_data.set_index(['Date Time'])
+    temp_data = data["T (degC)"]
+    temp_data = pd.DataFrame({"Date Time": data.index, "T (degC)":temp_data.values})
+    temp_data = temp_data.set_index(["Date Time"])
     return temp_data
 
 def data_scaling(data):

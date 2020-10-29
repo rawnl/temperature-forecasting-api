@@ -49,8 +49,10 @@ class HourlyForecasting(db.Model):
     temperature = db.Column(db.String(20), nullable=False)
 
     def __repr__(self):
-        return 'HourlyForecasting({}, {})'.format(self.date_hour, self.temperature)
-
+        #not working
+        #return '{date_hour : {}, temperature: {}}'.format(self.date_hour, self.temperature)
+        return jsonify({'date_hour': self.date_hour, 'temperature': self.temperature})
+        #return 'HourlyForecasting({}, {})'.format(self.date_hour, self.temperature)
 
 class DailyForecasting(db.Model):
     date = db.Column(db.DateTime, primary_key=True, default=datetime.utcnow)

@@ -1,13 +1,15 @@
 from flask import Blueprint
-from flask import render_template, url_for, flash, redirect, request, jsonify
+from flask import render_template, url_for, flash, redirect, request, jsonify, make_response
 from app import db, bcrypt, config
 from app.users.forms import RegistrationForm, LoginForm, UpdateAccountForm, RequestResetForm, ResetPasswordForm, AddForm
 from app.users.utils import save_picture, send_reset_email
-from app.db_models import User
+from app.db_models import User, HourlyForecasting, DailyForecasting
 from flask_login import login_user, current_user, logout_user, login_required
 import uuid
 from functools import wraps
 import jwt
+import datetime
+import json
 
 users = Blueprint('users', __name__)
 
@@ -230,9 +232,23 @@ def delete(id):
     return redirect(url_for('main.home'))
 
 @users.route('/predict', methods=['GET'])
-def predict():
-    return jsonify({'prediction':5})
+def predict(): 
+    '''
+    date_hour = datetime.datetime.now().replace(minute=0, second=0, microsecond=0)# + datetime.timedelta(hours=1)
+    forecast = HourlyForecasting(date_hour=date_hour,temperature='25')
+    db.session.add(forecast)
+    db.session.commit()
+    '''
+    
+    date_hour = datetime.datetime.now().replace(minute=0, second=0, microsecond=0)# + datetime.timedelta(hours=1)
+    hour_temp = HourlyForecasting.query.filter_by(date_hour=date_hour).first()    
+    print(hour_temp.date_hour)
+    print(hour_temp.temperature)
+
+    return jsonify({'date_hour':hour_temp.date_hour ,'temperature': hour_temp.temperature})
+    
     #token = request.args['token'] # 400 error if None
+    
     '''data = request.get_json() #optional
     token = data['token']
     username = data['auth']['username']

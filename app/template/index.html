@@ -1,8 +1,58 @@
 {% extends 'layouts/layout.html'%}
 {% block body %}
+
+<script type="text/javascript">
+    /*
+    $(document).ready(function() {
+      $('#show_forecasts').click( function(e) {
+        e.preventDefault();
+        $.ajax({
+          dataType: "json",
+          url: "{{ url_for('users.predict')}}",
+          success: function(result) {
+            $("#forecasts").append(JSON.stringify(result))
+            alert('ok');
+          },
+          error: function(result) {
+            alert('error');
+          }
+        });
+      });
+    });*/
+</script>  
+
  <div class="jumbotron text-center">
   <h1> Temperature Forecasting API</h1>
   <p class="lead">API gratuite de prévsion de la température quotidienne et horaire.</p>
-  <p class="lead">Si vous êtes un développeur qui souhaite l'utiliser, il vous suffit de créer un compte</p>
- </div>
+  <button name="show_forecasts" id="show" onclick="request_forecasts()">Afficher les prévisions d'aujourdhui</button>
+  
+
+  
+  <div class="forecasts" name="forecasts" id="forecasts">
+         
+  </div>
+ </div>     
+
+<script>
+    function request_forecasts(){
+       $.ajax({
+        type:'GET',
+        url :"{{ url_for('users.predict') }}",
+        success: function(data) {
+                console.log('success',data.temperature);
+                alert('Temperature :'+data.temperature+"on "+data.date_hour);
+                $("#show").hide()
+                var date = new Date();
+                var element = "<div>la temperature actuellement est "+d.getHours()+":"+d.getMinutes()+data.temperature+" C°</div>"
+                $("#forecasts").append(element)
+                //$("#forecasts").css("display", "none");
+                //$("#forecasts").show(); //toggle("slide")
+                },
+        error:  function(exception){
+            alert('Exeption:'+exception);
+            }
+        }); 
+        e.preventDefault();
+    }
+</script> 
 {% endblock%}

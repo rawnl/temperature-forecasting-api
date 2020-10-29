@@ -1,5 +1,14 @@
 {% extends 'layouts/sidebar.html'%}
 {% block body %}
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+
 <!--
 <style>
   .scrolling{
@@ -35,6 +44,232 @@
   }
 </script>
 -->
+
+<style>
+  body {
+    /*font-family: 'Varela Round', sans-serif;*/
+    font-size: 13px;
+  }
+  .table-responsive {
+      margin: 30px 0;
+  }
+  .table-wrapper {
+    background: #fff;
+    padding: 20px 25px;
+    border-radius: 3px;
+    min-width: 1000px;
+    box-shadow: 0 1px 1px rgba(0,0,0,.05);
+  }
+  .table-title {
+    padding-bottom: 15px;
+    background: bg-dark /*#435d7d;*/
+    color: #fff;
+    padding: 16px 30px;
+    min-width: 100%;
+    margin: -20px -25px 10px;
+    border-radius: 3px 3px 0 0;
+  }
+  .table-title h2 {
+    margin: 5px 0 0;
+    font-size: 24px;
+  }
+  .table-title .btn-group {
+    float: right;
+  }
+  .table-title .btn {
+    color: #fff;
+    float: right;
+    font-size: 13px;
+    border: none;
+    min-width: 50px;
+    border-radius: 2px;
+    border: none;
+    outline: none !important;
+    margin-left: 10px;
+  }
+  .table-title .btn i {
+    float: left;
+    font-size: 21px;
+    margin-right: 5px;
+  }
+  .table-title .btn span {
+    float: left;
+    margin-top: 2px;
+  }
+  table.table tr th, table.table tr td {
+    border-color: #e9e9e9;
+    padding: 12px 15px;
+    vertical-align: middle;
+  }
+  table.table tr th:first-child {
+    width: 60px;
+  }
+  table.table tr th:last-child {
+    width: 100px;
+  }
+  table.table-striped tbody tr:nth-of-type(odd) {
+    background-color: #fcfcfc;
+  }
+  table.table-striped.table-hover tbody tr:hover {
+    background: #f5f5f5;
+  }
+  table.table th i {
+    font-size: 13px;
+    margin: 0 5px;
+    cursor: pointer;
+  }
+  table.table td:last-child i {
+    opacity: 0.9;
+    font-size: 22px;
+    margin: 0 5px;
+  }
+  table.table td a {
+    font-weight: bold;
+    color: #566787;
+    display: inline-block;
+    text-decoration: none;
+    outline: none !important;
+  }
+  table.table td a:hover {
+    color: #2196F3;
+  }
+  table.table td a.edit {
+    color: #FFC107;
+  }
+  table.table td a.delete {
+    color: #F44336;
+  }
+  table.table td i {
+    font-size: 19px;
+  }
+  table.table .avatar {
+    border-radius: 50%;
+    vertical-align: middle;
+    margin-right: 10px;
+  }
+  .pagination {
+    float: right;
+    margin: 0 0 5px;
+  }
+  .pagination li a {
+    border: none;
+    font-size: 13px;
+    min-width: 30px;
+    min-height: 30px;
+    color: #999;
+    margin: 0 2px;
+    line-height: 30px;
+    border-radius: 2px !important;
+    text-align: center;
+    padding: 0 6px;
+  }
+  .pagination li a:hover {
+    color: #666;
+  }
+  .pagination li.active a, .pagination li.active a.page-link {
+    background: #03A9F4;
+  }
+  .pagination li.active a:hover {
+    background: #0397d6;
+  }
+  .pagination li.disabled i {
+    color: #ccc;
+  }
+  .pagination li i {
+    font-size: 16px;
+    padding-top: 6px
+  }
+  .hint-text {
+    float: left;
+    margin-top: 10px;
+    font-size: 13px;
+  }
+  /* Custom checkbox */
+  .custom-checkbox {
+    position: relative;
+  }
+  .custom-checkbox input[type="checkbox"] {
+    opacity: 0;
+    position: absolute;
+    margin: 5px 0 0 3px;
+    z-index: 9;
+  }
+  .custom-checkbox label:before{
+    width: 18px;
+    height: 18px;
+  }
+  .custom-checkbox label:before {
+    content: '';
+    margin-right: 10px;
+    display: inline-block;
+    vertical-align: text-top;
+    background: white;
+    border: 1px solid #bbb;
+    border-radius: 2px;
+    box-sizing: border-box;
+    z-index: 2;
+  }
+  .custom-checkbox input[type="checkbox"]:checked + label:after {
+    content: '';
+    position: absolute;
+    left: 6px;
+    top: 3px;
+    width: 6px;
+    height: 11px;
+    border: solid #000;
+    border-width: 0 3px 3px 0;
+    transform: inherit;
+    z-index: 3;
+    transform: rotateZ(45deg);
+  }
+  .custom-checkbox input[type="checkbox"]:checked + label:before {
+    border-color: #03A9F4;
+    background: #03A9F4;
+  }
+  .custom-checkbox input[type="checkbox"]:checked + label:after {
+    border-color: #fff;
+  }
+  .custom-checkbox input[type="checkbox"]:disabled + label:before {
+    color: #b8b8b8;
+    cursor: auto;
+    box-shadow: none;
+    background: #ddd;
+  }
+  /* Modal styles */
+  .modal .modal-dialog {
+    max-width: 400px;
+  }
+  .modal .modal-header, .modal .modal-body, .modal .modal-footer {
+    padding: 20px 30px;
+  }
+  .modal .modal-content {
+    border-radius: 3px;
+    font-size: 14px;
+  }
+  .modal .modal-footer {
+    background: #ecf0f1;
+    border-radius: 0 0 3px 3px;
+  }
+  .modal .modal-title {
+    display: inline-block;
+  }
+  .modal .form-control {
+    border-radius: 2px;
+    box-shadow: none;
+    border-color: #dddddd;
+  }
+  .modal textarea.form-control {
+    resize: vertical;
+  }
+  .modal .btn {
+    border-radius: 2px;
+    min-width: 100px;
+  }
+  .modal form label {
+    font-weight: normal;
+  }
+</style>
+
 <style>
 
 #csv-file-btn {
@@ -45,7 +280,7 @@
   align-content: center;
 }
 </style>
-<!--
+
 <script>
   function getFile() {
     document.getElementById("upfile").click();
@@ -59,7 +294,6 @@
     event.preventDefault();
   }
 </script>
--->
 
 <div class="content-header">
    <div class="container-fluid">
@@ -70,7 +304,7 @@
      <div class="col-sm-6">
       <ol class="breadcrumb float-sm-right">
         <li class="breadcrumb-item">Dashboard</li> <!-- <a href="#"> </a> -->
-        <li class="breadcrumb-item active">Developpement</li>
+        <li class="breadcrumb-item active">Development</li>
       </ol>
      </div><!-- /.col -->
    </div><!-- /.row -->
@@ -78,88 +312,87 @@
 </div>
 
 <!-- Dev Form -->
-<form method="POST" action="" enctype="multipart/form-data">
 <div class="card text-center">
   
   <div class="card-header">
     <ul class="nav nav-tabs card-header-tabs">
       <li class="nav-item">
-        <a class="nav-link active" href="#">Entrainement</a>
+        <a class="nav-link active" href="#">Training</a>
       </li>
     </ul>
   </div>
 
   <br>
   <div class="card-columns">
-
+  <form method="POST" action="{{ url_for('models.train') }}" enctype="multipart/form-data">
 <!-- data card -->
-    <div class="card text-center" style="width: 18rem;"> <!---->
+    <div class="card text-center" style="width: 20rem;"> <!---->
       <div class="card-header">
-        Données
+        Data
       </div>
       <div class="card-body justify-content-between">
-        <div class="form-control" id="csv-file-btn" onclick="getFile()"><i class="fa fa-file"></i><span>Importer un fichier csv</span></div>
+        <div class="form-control" id="csv-file-btn" onclick="getFile()"><i class="fa fa-upload"></i><span> CSV file</span></div>
         <!-- this is your file input tag, so i hide it!-->
         <!-- i used the onchange event to fire the form submission-->
         <div style='height: 0px;width: 0px; overflow:hidden;'>
-          <input id="upfile" type="file" value="upload" onchange="sub(this)" />
+          <input name="csv-file" id="upfile" type="file" value="upload" onchange="sub(this)" />
         </div>
         <!-- here you can have file submit button or you can write a simple script to upload the file automatically-->
         <!-- <input type="submit" value='submit' > -->
         <!--<input type="file" id="data" class="form-control">-->
  
-        <p class="card-text"><small class="text-muted">Le fichier doit contenir deux colonnes, la premiere respresente la date et la deuxieme represente la temperature C°</small></p>
+        <p class="card-text"><small class="text-muted">The file must contain two columns, the first one represents the date and the second one represents the temperature C°</small></p>
       
         <hr>
-        <h5 class="card-title">Aperçu de données</h5>
+        <h5 class="card-title">Data visualization</h5>
         
-        <p class="card-text">Nombre d'enregistrements: 20000</p>
+        <p class="card-text">N° Records : 20000</p>
 
         <div class="row">
           <div class="col" >Window</div>
           <div class="col">
-            <input type="number" id="window" required class="form-control">
+            <input type="number" id="window" name="window" required class="form-control">
           </div>  
         </div>
         <div class="row">
-          <div class="col" >Training</div>
+          <div class="col" >Training/Validation</div>
           <div class="col">
-            <input type="number" id="training" required class="form-control">
+            <select id="training" name="training" class="form-control" requuired>
+              <option value="90" >90% - 10%</option>
+              <option value="85" selected>85% - 15%</option>
+              <option value="80">80% - 20%</option>
+              <option value="75" >75% - 25%</option>
+            </select>
+            
+            <!--<input type="number" id="training" name="training" required class="form-control">-->
           </div>  
         </div>
 
-        <div class="row">
-          <div class="col" >Validation</div>
-          <div class="col">
-            <input type="number" id="validation" required class="form-control">
-          </div>  
-        </div>
-
-        <p class="card-text"><small class="text-muted">Window: le nombre d'enregistrements (heures) passés a prendre en consideration</small></p>
+        <p class="card-text"><small class="text-muted">Window: The number of records (passed hours) to be considered</small></p>
       </div>      
     </div>
 <!-- end of data -->
 
 <!-- model card -->
-<div class="card" style="width: 18rem;">
+<div class="card" style="width: 20rem;">
   <div class="card-header">
     Modele
   </div>
   <div class="card-body">
-    <select id="model" class="form-control">
-      <option selected>Simple Model</option>
-      <option>Multi Step Model</option>
+    <select id="model" name="model" class="form-control">
+      <option value="simple" selected>Simple Model</option>
+      <option value="multi" >Multi Step Model</option>
     </select>
     <hr>
-    <h5 class="card-title">Description du modele</h5>
-    <p class="card-text">Ce modele permet de prédire la temperature pour les prochainnes 24h</p>
+    <h5 class="card-title">Model description</h5>
+    <p class="card-text">This model predicts the temperature of the next 24 hours </p>
     <hr>
-    <h5 class="card-title">Hyper-parametres</h5>
+    <h5 class="card-title">Hyper-parametrs</h5>
 
     <div class="row">
       <div class="col" >optimizer</div>
       <div class="col">
-        <select id="optimizer" class="form-control">
+        <select id="optimizer" name="optimizer" class="form-control">
           <option value="Adam" selected>Adam</option>
           <option value="RMSprop">RMSprop</option>
           <option value="SGD">SGD</option>
@@ -170,7 +403,7 @@
     <div class="row">
       <div class="col" >Learning rate </div>
       <div class="col">
-        <select id="lr" class="form-control">
+        <select id="lr" name="lr" class="form-control">
           <option value="0.0001" selected>0.0001</option>
           <option value="0.001">0.001</option>
           <option value="0.01">0.01</option>
@@ -181,7 +414,7 @@
     <div class="row">
       <div class="col" >Batch size</div>
       <div class="col">
-        <select id="batch" class="form-control">
+        <select id="batch" name="batch" class="form-control">
           <option value="64" selected>64</option>
           <option value="128">128</option>
           <option value="256">256</option>
@@ -192,7 +425,7 @@
     <div class="row">
       <div class="col" >Epochs</div>
       <div class="col">
-        <input type="number" id="epoch" required class="form-control">
+        <input type="number" id="epochs" name="epochs" required class="form-control">
       </div>  
     </div>
 
@@ -201,31 +434,99 @@
 <!-- end of model card -->
 
 <!-- Results card -->
-    <div class="card text-center" style="width: 18rem;">
+    <div class="card text-center" style="width: 20rem;">
       <div class="card-header">
-        Résultats
+        Results
       </div>
       <div class="card-body text-center">
         <div class="row">
-          Temps d'entrainement: 
+          Training time: 
         </div>
         <div class="row"> 
-          MAE ( Entrainement):
+          MAE ( Training):
         </div>
         <div class="row"> 
           MAE (Validation): 
         </div>
         <div class="row">
-          Graphe :
+          Graph :
+          <div class="ct-chart ct-minor-second"></div>
+          <script>
+        
+            var data = {
+              labels: ['Week1', 'Week2', 'Week3', 'Week4', 'Week5', 'Week6'],
+              series: [
+                [5, 4, 3, 7, 5, 10],
+                [3, 2, 9, 5, 4, 6],
+                [2, 1, -3, -4, -2, 0]
+              ]
+            };
+        
+            // We are setting a few options for our chart and override the defaults
+            var options = {
+              // Don't draw the line chart points
+              showPoint: false,
+              // Disable line smoothing
+              lineSmooth: false,
+              // X-Axis specific configuration
+              axisX: {
+                // We can disable the grid for this axis
+                showGrid: false,
+                // and also don't show the label
+                showLabel: false
+              },
+              // Y-Axis specific configuration
+              axisY: {
+                // Lets offset the chart a bit from the labels
+                offset: 60,
+                // The label interpolation function enables you to modify the values
+                // used for the labels on each axis. Here we are converting the
+                // values into million pound.
+                labelInterpolationFnc: function(value) {
+                  return '$' + value + 'm';
+                }
+              }
+            };
+        
+            var responsiveOptions = [
+              ['screen and (min-width: 641px) and (max-width: 1024px)', {
+                seriesBarDistance: 10,
+                axisX: {
+                  labelInterpolationFnc: function (value) {
+                    return value;
+                  }
+                }
+              }],
+              ['screen and (max-width: 640px)', {
+                seriesBarDistance: 5,
+                axisX: {
+                  labelInterpolationFnc: function (value) {
+                    return value[0];
+                  }
+                }
+              }]
+            ];
+            // All you need to do is pass your configuration as third parameter to the chart function
+            new Chartist.Line('.ct-minor-second', data, options, responsiveOptions);
+        
+          </script>
+
         </div>
       </div>
     </div>
 <!-- end configuration -->
   
+
+<div class="card text-center" style="width: 18rem;">
+  <div class="form-row">
+    <div class="form-group col-md-6">
+      <input type="submit" class="form-control" id="submit" value="submit">
+    </div>
 </div>
 
 </div>
-</form>
+  </form>
+  </div>
 
 </div>
   <!--  

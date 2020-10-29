@@ -112,6 +112,8 @@
         }
     </style>
 
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/chartist.js/latest/chartist.min.css">
+<script src="https://cdn.jsdelivr.net/chartist.js/latest/chartist.min.js"></script>
 <!--    <script>
         /* it seems javascript..*/
         var topLimit = $('#bar-fixed').offset().top;
@@ -132,17 +134,17 @@
 <body>
     {% include 'include/_dashbar.html'%}
     <!-- sidebar -->
-    <div class="sidebar bg-dark fixed" id="sidebar">
+    <div class="sidebar bg-dark fixed " id="sidebar" style="position: -webkit-sticky !important ; top: 30px;">
         <center>
             <img src="static/profile_pics/{{ current_user.image_file }}" class="profile_image rounded-circle" alt="">
             <h4>{{ current_user.username}}</h4>
         </center>
         <a href="/dashboard"><i class="fa fa-bar-chart"></i><span>Dashboard</span></a>
-        <a href="/database"><i class="fa fa-database"></i><span>Base de données</span></a>
-        <a href="/development"><i class="fa fa-terminal"></i><span>Developement</span></a>
-        <a href="/account"><i class="fa fa-cogs"></i><span>Compte</span></a>
+        <a href="/database"><i class="fa fa-database"></i><span>Database</span></a>
+        <a href="/development"><i class="fa fa-terminal"></i><span>Development</span></a>
+        <a href="/account"><i class="fa fa-cogs"></i><span>Account</span></a>
     </div>
-
+    
     <!-- content -->
     <div class="content">
         <div class="container-fluid">
